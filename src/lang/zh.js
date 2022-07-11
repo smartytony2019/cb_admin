@@ -15,9 +15,6 @@ const zh = {
     back: '返回',
     confirm: '确定'
   },
-  form: {
-    username: '用户名'
-  },
   placeholder: {
     username: '请输入用户名',
     datePicker: '选择日期'
@@ -32,10 +29,13 @@ const zh = {
       table: {
         id: '会员id',
         username: '名称',
-        avatar: '图像'
+        money: '金额',
+        createTime: '创建时间',
+        operate: '操作'
       },
       form: {
-        username: '用户名'
+        username: '用户名',
+        createTime: '创建时间'
       }
     },
     flow: {

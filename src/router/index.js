@@ -56,22 +56,22 @@ export const constantRoutes = [
   },
 
   {
-    path: '/user',
+    path: '/member',
     component: Layout,
-    redirect: '/user/index',
-    name: 'user',
+    redirect: '/member/index',
+    name: 'member',
     meta: { title: 'member.menu', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'index',
-        name: 'Index',
-        component: () => import('@/views/user/index'),
+        path: 'member',
+        name: 'Member',
+        component: () => import('@/views/member'),
         meta: { title: 'member.list.menu', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/user/flow'),
+        path: 'flow',
+        name: 'Flow',
+        component: () => import('@/views/memberFlow'),
         meta: { title: 'member.flow.menu', icon: 'tree' }
       }
     ]

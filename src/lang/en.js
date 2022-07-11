@@ -15,9 +15,6 @@ export default {
     back: 'back',
     confirm: 'confirm'
   },
-  form: {
-    username: 'username'
-  },
   placeholder: {
     username: 'input username',
     datePicker: 'select date'
@@ -32,10 +29,13 @@ export default {
       table: {
         id: 'member id',
         username: 'username',
-        avatar: 'avatar'
+        money: 'money',
+        createTime: 'create time',
+        operate: 'operate'
       },
       form: {
-        username: 'username'
+        username: 'username',
+        createTime: 'create time'
       }
     },
     flow: {
