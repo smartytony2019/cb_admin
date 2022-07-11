@@ -1,14 +1,26 @@
 export default {
-  message: {
-    'hello': 'hello, world',
-    'msg': 'point out'
+  global: {
+    operation: 'operation'
+  },
+  button: {
+    edit: 'edit',
+    add: 'add',
+    delete: 'delete',
+    save: 'save',
+    cancel: 'cancel',
+    search: 'search',
+    reset: 'reset',
+    submit: 'submit',
+    close: 'close',
+    back: 'back',
+    confirm: 'confirm'
   },
   form: {
-    username: 'username',
-    search: 'search'
+    username: 'username'
   },
   placeholder: {
-    username: 'input username'
+    username: 'input username',
+    datePicker: 'select date'
   },
   dashboard: {
     menu: 'dashboard'
@@ -21,6 +33,9 @@ export default {
         id: 'member id',
         username: 'username',
         avatar: 'avatar'
+      },
+      form: {
+        username: 'username'
       }
     },
     flow: {

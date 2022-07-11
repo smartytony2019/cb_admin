@@ -1,13 +1,24 @@
 <template>
   <div class="app-container">
+    <!-- 搜索框 - start -->
     <el-form ref="form" :model="params" :inline="true" size="mini">
       <el-form-item :label="$t('form.username')">
         <el-input v-model="params.username" :placeholder="$t('placeholder.username')" />
       </el-form-item>
+      <el-form-item :label="$t('form.username')">
+        <el-date-picker
+          v-model="value2"
+          type="date"
+          :placeholder="$t('placeholder.datePicker')"
+        />
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">{{ $t('form.search') }}</el-button>
+        <el-button type="primary" @click="onSubmit">{{ $t('button.search') }}</el-button>
       </el-form-item>
     </el-form>
+    <!-- 搜索框 - end -->
+
+    <!-- 列表 - start -->
     <template>
       <el-table
         :data="list"
@@ -27,26 +38,41 @@
           prop="avatar"
           :label="$t('member.list.table.avatar')"
         />
+
+        <el-table-column align="center" label="Actions" min-width="80">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" @click="createOrUpdate(scope.row.id)">
+              {{ $t('button.edit') }}
+            </el-button>
+            <el-button type="success" size="mini" @click="createOrUpdate(scope.row.id)">
+              {{ $t('button.delete') }}
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
-      <div class="paginationClass" style="float:right">
-        <el-pagination
-          :current-page="params.current"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="params.size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </div>
+
+      <!-- 分页 - start -->
+      <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
+      <!-- 分页 - end -->
+
     </template>
+    <!-- 列表 - end -->
+
+    <!-- 弹框(添加/修改) - start -->
+    <el-dialog v-if="dialogCreateOrUpdateVisible" :title="$t('global.operation')" :visible.sync="dialogCreateOrUpdateVisible">
+      <create-or-update :id="id" />
+    </el-dialog>
+    <!-- 弹框(添加/修改) - end -->
   </div>
 </template>
 
 <script>
 import { getUserList } from '@/api/user'
+import CreateOrUpdate from './components/CreateOrUpdate'
+import Pagination from '@/components/Pagination'
 
 export default {
+  components: { Pagination, CreateOrUpdate },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -59,6 +85,8 @@ export default {
   },
   data() {
     return {
+      id: 0,
+      dialogCreateOrUpdateVisible: false,
       total: 0,
       list: null,
       listLoading: true,
@@ -67,7 +95,8 @@ export default {
         size: 10,
         username: '',
         region: ''
-      }
+      },
+      value2: ''
     }
   },
   created() {
@@ -91,13 +120,10 @@ export default {
     onSubmit() {
       console.log(111)
     },
-    handleSizeChange(val) {
-      this.params.size = val
-      this.fetchData()
-    },
-    handleCurrentChange(val) {
-      this.params.current = val
-      this.fetchData()
+    createOrUpdate(id) {
+      this.dialogCreateOrUpdateVisible = true
+      this.id = id
+      console.log(id)
     }
   }
 }
