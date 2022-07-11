@@ -3,6 +3,9 @@ export default {
     'hello': 'hello, world',
     'msg': 'point out'
   },
+  dashboard: {
+    menu: 'dashboard'
+  },
   member: {
     menu: 'member Manager',
     list: {
@@ -10,7 +13,7 @@ export default {
       table: {
         id: 'member id',
         username: 'username',
-        avatar:'avatar'
+        avatar: 'avatar'
       }
     },
     flow: {
@@ -18,7 +21,7 @@ export default {
       table: {
         id: 'member id',
         username: 'username',
-        avatar:'avatar'
+        avatar: 'avatar'
       }
     }
   }

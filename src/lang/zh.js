@@ -3,6 +3,9 @@ const zh = {
     'hello': '你好，世界',
     'msg': '提示'
   },
+  dashboard: {
+    menu: '面板'
+  },
   member: {
     menu: '会员管理',
     list: {
@@ -10,7 +13,7 @@ const zh = {
       table: {
         id: '会员id',
         username: '名称',
-        avatar:'图像'
+        avatar: '图像'
       }
     },
     flow: {
@@ -18,7 +21,7 @@ const zh = {
       table: {
         id: '会员id',
         username: '名称',
-        avatar:'图像'
+        avatar: '图像'
       }
     }
   }
