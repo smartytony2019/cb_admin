@@ -3,6 +3,13 @@ const zh = {
     'hello': '你好，世界',
     'msg': '提示'
   },
+  form: {
+    username: '用户名',
+    search: '搜索'
+  },
+  placeholder: {
+    username: '请输入用户名'
+  },
   dashboard: {
     menu: '面板'
   },
