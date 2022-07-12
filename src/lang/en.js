@@ -1,6 +1,7 @@
 export default {
   global: {
-    operation: 'operation'
+    operation: 'operation',
+    inputEmptyError: 'content can not blank'
   },
   button: {
     edit: 'edit',
@@ -17,15 +18,71 @@ export default {
   },
   placeholder: {
     username: 'input username',
-    datePicker: 'select date'
+    dateRange: {
+      start: 'select start date',
+      end: 'select end date'
+    }
   },
   dashboard: {
     menu: 'dashboard'
   },
+  bet: {
+    menu: 'Bet Manager',
+    lottery: {
+      menu: 'Lottery Bet',
+      table: {
+        username: 'username',
+        cateNameCode: 'category',
+        gameNameCode: 'game',
+        playNameCode: 'play',
+        playCodeNameCode: 'bet',
+        hashResult: 'result',
+        num: 'number',
+        odds: 'odds',
+        money: 'money',
+        profitMoney: 'profit money',
+        payoutMoney: 'payout money',
+        createTime: 'bet time',
+        updateTime: 'update time',
+        status: 'status'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    },
+    draw: {
+      menu: 'Draw Bet',
+      table: {
+        username: 'username',
+        cateNameCode: 'category',
+        gameNameCode: 'game',
+        playNameCode: 'play',
+        playCodeNameCode: 'bet',
+        hashResult: 'result',
+        num: 'number',
+        odds: 'odds',
+        money: 'money',
+        profitMoney: 'profit money',
+        payoutMoney: 'payout money',
+        createTime: 'bet time',
+        updateTime: 'update time',
+        status: 'status'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    }
+  },
   member: {
-    menu: 'member Manager',
+    menu: 'Member Manager',
     list: {
-      menu: 'member List',
+      menu: 'Member List',
       table: {
         id: 'member id',
         username: 'username',
@@ -35,15 +92,20 @@ export default {
       },
       form: {
         username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
         createTime: 'create time'
       }
     },
     flow: {
       menu: 'member Flow',
       table: {
-        id: 'member id',
         username: 'username',
-        avatar: 'avatar'
+        beforeMoney: 'before money',
+        afterMoney: 'after money',
+        flowMoney: 'flow money',
+        item: 'flow item',
+        createTime: 'create time'
       }
     }
   }

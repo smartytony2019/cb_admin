@@ -1,19 +1,25 @@
 <template>
   <div class="operation-container">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item :label="$t('member.list.form.username')">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+      <el-form-item :label="$t('member.list.form.username')" prop="username">
         <el-input v-model="form.username" />
       </el-form-item>
+      <el-form-item :label="$t('member.list.form.pwd')" prop="pwd">
+        <el-input v-model="form.pwd" />
+      </el-form-item>
+      <el-form-item :label="$t('member.list.form.confirmPwd')" prop="pwd">
+        <el-input v-model="form.pwd" />
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm">确定</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="submitForm">{{$t('button.confirm')}}</el-button>
+        <el-button  @click="cancel">{{$t('button.cancel')}}</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { get } from '@/api/user'
+import api from '@/api'
 
 export default {
   name: 'CreateOrUpdate',
@@ -26,11 +32,7 @@ export default {
   data() {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
-        this.$message({
-          message: rule.field + '为必传项',
-          type: 'error'
-        })
-        callback(new Error(rule.field + '为必传项'))
+        callback(new Error(this.$t('global.inputEmptyError')))
       } else {
         callback()
       }
@@ -39,9 +41,7 @@ export default {
       loading: false,
       userListOptions: [],
       rules: {
-        image_uri: [{ validator: validateRequire }],
-        title: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }]
+        username: [{ validator: validateRequire }]
       },
       form: {
         username: ''
@@ -53,8 +53,7 @@ export default {
   },
   methods: {
     fetchData() {
-      console.log('----')
-      get({ id: this.id }).then(response => {
+      api.member.get({ id: this.id }).then(response => {
         console.log(response)
         this.form = response.data
       }).catch(err => {
@@ -62,7 +61,7 @@ export default {
       })
     },
     submitForm() {
-      this.$refs.postForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
           this.$notify({
@@ -71,13 +70,15 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.postForm.status = 'published'
           this.loading = false
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    cancel() {
+      this.$emit('cancel')
     }
   }
 }

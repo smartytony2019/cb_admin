@@ -21,6 +21,10 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['Authorization'] = getToken()
     }
+    
+    if (getToken('language')) {
+      config.headers['language'] = getToken('language')
+    }
     return config
   },
   error => {

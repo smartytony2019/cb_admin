@@ -56,6 +56,28 @@ export const constantRoutes = [
   },
 
   {
+    path: '/bet',
+    component: Layout,
+    redirect: '/bet/index',
+    name: 'bet',
+    meta: { title: 'bet.menu', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'bet',
+        name: 'Bet',
+        component: () => import('@/views/bet'),
+        meta: { title: 'bet.lottery.menu', icon: 'table' }
+      },
+      {
+        path: 'draw',
+        name: 'Draw',
+        component: () => import('@/views/memberFlow'),
+        meta: { title: 'bet.draw.menu', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
     path: '/member',
     component: Layout,
     redirect: '/member/index',
