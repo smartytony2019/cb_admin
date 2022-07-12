@@ -202,6 +202,39 @@ const zh = {
         name: '名称'
       }
     }
+  },
+
+  // 系统管理
+  system: {
+    menu: '系统管理',
+    user: {
+      menu: '用户列表',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    role: {
+      menu: '角色列表',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    permission: {
+      menu: '权限列表',
+      table: {
+        id: 'play id',
+        name: 'play name'
+      }
+    },
+    setting: {
+      menu: '系统设置',
+      table: {
+        id: 'play id',
+        name: 'play name'
+      }
+    }
   }
 }
 

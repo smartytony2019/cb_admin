@@ -55,10 +55,11 @@ export const constantRoutes = [
     }]
   },
 
+  // 注单管理
   {
     path: '/bet',
     component: Layout,
-    redirect: '/bet/index',
+    redirect: '/bet/bet',
     name: 'bet',
     meta: { title: 'bet.menu', icon: 'el-icon-s-help' },
     children: [
@@ -77,10 +78,11 @@ export const constantRoutes = [
     ]
   },
 
+  // 会员管理
   {
     path: '/member',
     component: Layout,
-    redirect: '/member/index',
+    redirect: '/member/member',
     name: 'member',
     meta: { title: 'member.menu', icon: 'el-icon-s-help' },
     children: [
@@ -99,6 +101,7 @@ export const constantRoutes = [
     ]
   },
 
+  // 代理管理
   {
     path: '/agent',
     component: Layout,
@@ -121,10 +124,11 @@ export const constantRoutes = [
     ]
   },
 
+  // 财务管理
   {
     path: '/finance',
     component: Layout,
-    redirect: '/finance/index',
+    redirect: '/finance/recharge',
     name: 'finance',
     meta: { title: 'finance.menu', icon: 'el-icon-s-help' },
     children: [
@@ -143,10 +147,11 @@ export const constantRoutes = [
     ]
   },
 
+  // 彩票管理
   {
     path: '/lottery',
     component: Layout,
-    redirect: '/lottery/category',
+    redirect: '/lottery/lottery',
     name: 'lottery',
     meta: { title: 'lottery.menu', icon: 'el-icon-s-help' },
     children: [
@@ -167,6 +172,41 @@ export const constantRoutes = [
         name: 'Play',
         component: () => import('@/views/lottery/play'),
         meta: { title: 'lottery.play.menu', icon: 'tree' }
+      }
+    ]
+  },
+
+  // 系统管理
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/user',
+    name: 'system',
+    meta: { title: 'system.menu', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@/views/system/user'),
+        meta: { title: 'system.user.menu', icon: 'table' }
+      },
+      {
+        path: 'role',
+        name: 'Role',
+        component: () => import('@/views/system/role'),
+        meta: { title: 'system.role.menu', icon: 'table' }
+      },
+      {
+        path: 'permission',
+        name: 'Permission',
+        component: () => import('@/views/system/permission'),
+        meta: { title: 'system.permission.menu', icon: 'table' }
+      },
+      {
+        path: 'setting',
+        name: 'Setting',
+        component: () => import('@/views/system/setting'),
+        meta: { title: 'system.setting.menu', icon: 'table' }
       }
     ]
   },

@@ -202,5 +202,38 @@ export default {
         name: 'play name'
       }
     }
+  },
+
+  // 彩票管理
+  system: {
+    menu: 'System Manager',
+    user: {
+      menu: 'User List',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    role: {
+      menu: 'Role List',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    permission: {
+      menu: 'Permission List',
+      table: {
+        id: 'play id',
+        name: 'play name'
+      }
+    },
+    setting: {
+      menu: 'Setting',
+      table: {
+        id: 'play id',
+        name: 'play name'
+      }
+    }
   }
 }
