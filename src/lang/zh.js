@@ -26,6 +26,8 @@ const zh = {
   dashboard: {
     menu: '面板'
   },
+
+  // 注单管理
   bet: {
     menu: '注单管理',
     lottery: {
@@ -79,6 +81,8 @@ const zh = {
       }
     }
   },
+
+  // 会员管理
   member: {
     menu: '会员管理',
     list: {
@@ -106,6 +110,96 @@ const zh = {
         flowMoney: '帐变金额',
         item: '帐变项',
         createTime: '帐变时间'
+      }
+    }
+  },
+
+  // 代理管理
+  agent: {
+    menu: '代理管理',
+    index: {
+      menu: '代理列表',
+      table: {
+        id: 'member id',
+        username: 'username',
+        money: 'money',
+        createTime: 'create time',
+        operate: 'operate'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    },
+    commission: {
+      menu: '佣金列表',
+      table: {
+        username: 'username',
+        beforeMoney: 'before money',
+        afterMoney: 'after money',
+        flowMoney: 'flow money',
+        item: 'flow item',
+        createTime: 'create time'
+      }
+    }
+  },
+
+  // 财务管理
+  finance: {
+    menu: '财务管理',
+    recharge: {
+      menu: '充值列表',
+      table: {
+        id: 'member id',
+        username: 'username',
+        money: 'money',
+        createTime: 'create time',
+        operate: 'operate'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    },
+    withdraw: {
+      menu: '提现列表',
+      table: {
+        username: 'username',
+        beforeMoney: 'before money',
+        afterMoney: 'after money',
+        flowMoney: 'flow money',
+        item: 'flow item',
+        createTime: 'create time'
+      }
+    }
+  },
+
+  // 彩票管理
+  lottery: {
+    menu: '彩票管理',
+    category: {
+      menu: '类目列表',
+      table: {
+        id: 'id',
+        name: '名称'
+      }
+    },
+    game: {
+      menu: '游戏列表',
+      table: {
+        id: 'id',
+        name: '名称'
+      }
+    },
+    play: {
+      menu: '玩法列表',
+      table: {
+        id: 'id',
+        name: '名称'
       }
     }
   }

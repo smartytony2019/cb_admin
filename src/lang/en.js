@@ -26,6 +26,8 @@ export default {
   dashboard: {
     menu: 'dashboard'
   },
+
+  // 注单管理
   bet: {
     menu: 'Bet Manager',
     lottery: {
@@ -79,6 +81,8 @@ export default {
       }
     }
   },
+
+  // 会员管理
   member: {
     menu: 'Member Manager',
     list: {
@@ -106,6 +110,96 @@ export default {
         flowMoney: 'flow money',
         item: 'flow item',
         createTime: 'create time'
+      }
+    }
+  },
+
+  // 代理管理
+  agent: {
+    menu: 'Agent Manager',
+    index: {
+      menu: 'Agent List',
+      table: {
+        id: 'member id',
+        username: 'username',
+        money: 'money',
+        createTime: 'create time',
+        operate: 'operate'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    },
+    commission: {
+      menu: 'Commission List',
+      table: {
+        username: 'username',
+        beforeMoney: 'before money',
+        afterMoney: 'after money',
+        flowMoney: 'flow money',
+        item: 'flow item',
+        createTime: 'create time'
+      }
+    }
+  },
+
+  // 财务管理
+  finance: {
+    menu: 'Finance Manager',
+    recharge: {
+      menu: 'Recharge List',
+      table: {
+        id: 'member id',
+        username: 'username',
+        money: 'money',
+        createTime: 'create time',
+        operate: 'operate'
+      },
+      form: {
+        username: 'username',
+        pwd: 'password',
+        confirmPwd: 'confirm password',
+        createTime: 'create time'
+      }
+    },
+    withdraw: {
+      menu: 'Withdraw List',
+      table: {
+        username: 'username',
+        beforeMoney: 'before money',
+        afterMoney: 'after money',
+        flowMoney: 'flow money',
+        item: 'flow item',
+        createTime: 'create time'
+      }
+    }
+  },
+
+  // 彩票管理
+  lottery: {
+    menu: 'Lottery Manager',
+    category: {
+      menu: 'Category List',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    game: {
+      menu: 'Game List',
+      table: {
+        id: 'category id',
+        name: 'category name'
+      }
+    },
+    play: {
+      menu: 'Play List',
+      table: {
+        id: 'play id',
+        name: 'play name'
       }
     }
   }
