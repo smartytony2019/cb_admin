@@ -204,7 +204,14 @@ export default {
     }
   },
 
-  // 彩票管理
+  content: {
+    menu: 'Content Manager',
+    activity: {
+      menu: 'Activity menu'
+    }
+  },
+
+  // 系统管理
   system: {
     menu: 'System Manager',
     user: {

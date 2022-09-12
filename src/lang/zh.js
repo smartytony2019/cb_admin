@@ -204,6 +204,14 @@ const zh = {
     }
   },
 
+  // 内容管理
+  content: {
+    menu: '内容管理',
+    activity: {
+      menu: '活动列表'
+    }
+  },
+
   // 系统管理
   system: {
     menu: '系统管理',
