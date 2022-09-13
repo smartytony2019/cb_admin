@@ -5,37 +5,11 @@
 -->
 <template>
   <el-form ref="form" :model="form" label-width="150px" :rules="rules" size="mini">
-    <el-form-item label="周期" prop="cycle">
-      <el-select v-model="form.cycle" placeholder="请选择" @change="handleCycleChange">
-        <el-option
-          v-for="item in options"
-          :key="item.code"
-          :label="item.name"
-          :value="item.code"
-        />
-      </el-select>
-    </el-form-item>
-
-    <el-form-item v-if="form.cycle === '6'" label="天数" prop="days">
-      <el-input v-model="form.username" />
-    </el-form-item>
-
-    <el-form-item label="提现打码倍数" prop="withdrawBetMul">
-      <el-input v-model="form.withdrawBetMul" />
-    </el-form-item>
-
-    <el-form-item label="金额" prop="money">
-      <el-input v-model="form.money" />
-    </el-form-item>
 
     <el-form-item label="币种" prop="symbol">
-      <el-input v-model="form.symbol" />
-    </el-form-item>
-
-    <el-form-item label="计算方式" prop="calcMode">
-      <el-select v-model="form.calcMode" placeholder="请选择">
+      <el-select v-model="form.symbol" placeholder="请选择" @change="handleCycleChange">
         <el-option
-          v-for="item in options1"
+          v-for="item in symbal"
           :key="item.code"
           :label="item.name"
           :value="item.code"
@@ -43,46 +17,99 @@
       </el-select>
     </el-form-item>
 
-    <el-form-item label="领取方式" prop="receiveMode">
-      <el-select v-model="form.receiveMode" placeholder="请选择">
-        <el-option
-          v-for="item in options2"
-          :key="item.code"
-          :label="item.name"
-          :value="item.code"
-        />
-      </el-select>
-    </el-form-item>
+    <template v-if="configform.type === '600021'">
+      <el-form-item label="金额" prop="money">
+        <el-input v-model="form.money" />
+      </el-form-item>
+    </template>
+    <template v-else>
 
-    <el-form-item label="限制项" prop="limitItem">
-      <el-select v-model="form.limitItem" placeholder="请选择">
-        <el-option
-          v-for="item in options3"
-          :key="item.code"
-          :label="item.name"
-          :value="item.code"
-        />
-      </el-select>
-    </el-form-item>
+      <el-form-item label="周期" prop="cycle">
+        <el-select v-model="form.cycle" placeholder="请选择" @change="handleCycleChange">
+          <el-option
+            v-for="item in cycle"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          />
+        </el-select>
+      </el-form-item>
 
-    <el-form-item label="">
-      <el-row v-for="(item, index) in rows" :key="index">
-        <el-col class="group1" :span="3">规则项{{ item }}:</el-col>
-        <el-col class="group2" :span="4">
-          <el-select v-model="form.language" placeholder="类型">
-            <el-option label="区域一" value="shanghai" />
-            <el-option label="区域二" value="beijing" />
-          </el-select>
-        </el-col>
-        <el-col class="group3" :span="4"><el-input v-model="form.username" /></el-col>
-        <el-col class="group3 line" :span="1">-</el-col>
-        <el-col class="group3" :span="4"><el-input v-model="form.username" /></el-col>
-        <el-col class="group4" :span="3"><el-input v-model="form.username" placeholder="赠送比例" /></el-col>
-        <el-col class="group5" :span="1"><i v-if="item === rows" class="el-icon-circle-plus" @click="rows += 1" /></el-col>
-      </el-row>
-    </el-form-item>
+      <el-form-item v-if="form.cycle === '6'" label="天数" prop="days">
+        <el-input v-model="form.username" />
+      </el-form-item>
 
+      <el-form-item label="提现打码倍数" prop="withdrawBetMul">
+        <el-input v-model="form.withdrawBetMul" />
+      </el-form-item>
+
+      <el-form-item label="彩金打码倍数" prop="jackpotBetMul">
+        <el-input v-model="form.jackpotBetMul" />
+      </el-form-item>
+
+      <el-form-item label="计算方式" prop="calcMode">
+        <el-select v-model="form.calcMode" placeholder="请选择">
+          <el-option
+            v-for="item in calcMode"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="领取方式" prop="receiveMode">
+        <el-select v-model="form.receiveMode" placeholder="请选择">
+          <el-option
+            v-for="item in receiveMode"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="限制项" prop="limitItem">
+        <el-select v-model="form.limitItem" placeholder="请选择">
+          <el-option
+            v-for="item in limitItem"
+            :key="item.code"
+            :label="item.name"
+            :value="item.code"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-divider content-position="center">规则项</el-divider>
+
+      <el-form-item label="">
+        <el-row v-for="(item, index) in form.items" :key="index">
+          <el-col class="group1" :span="3" />
+          <el-col class="group2" :span="4">
+            <el-select v-model="form.items[index].type" placeholder="请选择">
+              <el-option
+                v-for="item1 in ruleItemType"
+                :key="item1.code"
+                :label="item1.name"
+                :value="item1.code"
+              />
+            </el-select>
+          </el-col>
+          <template v-if="item.type === 1">
+            <el-col class="group3" :span="4"><el-input v-model="form.items[index].min" /></el-col>
+            <el-col class="group3 line" :span="1">-</el-col>
+            <el-col class="group3" :span="4"><el-input v-model="form.items[index].max" /></el-col>
+          </template>
+          <template v-else>
+            <el-col class="group3" :span="4"><el-input v-model="form.items[index].min" /></el-col>
+          </template>
+          <el-col class="group4" :span="3"><el-input v-model="form.items[index].ratio" placeholder="赠送比例" /></el-col>
+          <el-col class="group5" :span="1"><i v-if="index === form.items.length-1" class="el-icon-circle-plus" @click="handleRuleItemAppendClick" /></el-col>
+        </el-row>
+      </el-form-item>
+    </template>
   </el-form>
+
 </template>
 
 <script>
@@ -98,6 +125,10 @@ export default {
     configform: {
       type: Object,
       default: () => {}
+    },
+    form: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -110,51 +141,13 @@ export default {
     }
     return {
       rows: 1,
-      options: [{
-        code: '1',
-        name: '一次'
-      }, {
-        code: '2',
-        name: '不限次数'
-      }, {
-        code: '3',
-        name: '一天一次'
-      }, {
-        code: '4',
-        name: '一周一次'
-      }, {
-        code: '5',
-        name: '一月一次'
-      }, {
-        code: '6',
-        name: '自定义天数'
-      }],
 
-      options1: [{
+      options4: [{
         code: '1',
-        name: '固定金额'
+        name: 'TRX'
       }, {
         code: '2',
-        name: '百分比'
-      }],
-
-      options2: [{
-        code: '1',
-        name: '直接发放'
-      }, {
-        code: '2',
-        name: '后端审核'
-      }, {
-        code: '3',
-        name: '自动发放'
-      }],
-
-      options3: [{
-        code: '1',
-        name: '充值'
-      }, {
-        code: '2',
-        name: '打码'
+        name: 'USDT'
       }],
 
       loading: false,
@@ -163,23 +156,57 @@ export default {
       rules: {
         username: [{ validator: validateRequire }]
       },
-      form: {
-        cycle: '',
-        days: '',
-        withdrawBetMul: '',
-        calcMode: '',
-        receiveMode: '',
-        money: '',
-        symbol: '',
-        limitItem: '',
-        limitLev: ''
-      }
+      cycle: [],
+      calcMode: [],
+      receiveMode: [],
+      limitItem: [],
+      ruleItemType: [],
+      symbal: []
     }
   },
   created() {
-    // this.init()
+    this.init()
   },
   methods: {
+    async init() {
+      // 规则周期
+      let res = await api.activity.findRuleCycle({})
+      if (res && res.code === 0) {
+        this.cycle = res.data
+      }
+
+      // 计算模式
+      res = await api.activity.findCalcMode({})
+      if (res && res.code === 0) {
+        this.calcMode = res.data
+      }
+
+      // 计算模式
+      res = await api.activity.findReceiveMode({})
+      if (res && res.code === 0) {
+        this.receiveMode = res.data
+      }
+
+      // 限制项
+      res = await api.activity.findLimitItem({})
+      if (res && res.code === 0) {
+        this.limitItem = res.data
+      }
+
+      // 规则项类型
+      res = await api.activity.findRuleItemType({})
+      if (res && res.code === 0) {
+        this.ruleItemType = res.data
+      }
+
+      // 规则项类型
+      res = await api.site.symbol({})
+      if (res && res.code === 0) {
+        this.symbal = res.data
+      }
+
+      this.handleRuleItemAppendClick()
+    },
     handleCycleChange() {
       console.log(this.form)
     },
@@ -189,6 +216,15 @@ export default {
       if (res && res.code === 0) {
         this.form = res.data
       }
+    },
+    // 规则项添加点击事件
+    handleRuleItemAppendClick() {
+      this.form.items.push({
+        type: 1,
+        min: '',
+        max: '',
+        ratio: ''
+      })
     },
     handleSubmit() {
       console.log(this.configform)

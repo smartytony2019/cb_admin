@@ -6,9 +6,9 @@
 <template>
   <el-form ref="form" :model="form" label-width="150px" :rules="rules" size="mini">
     <el-form-item label="类目" prop="cateName">
-      <el-select v-model="form.cateName" placeholder="请选择活动区域">
+      <el-select v-model="form.cateCode" placeholder="请选择活动区域">
         <el-option
-          v-for="item in options"
+          v-for="item in cate"
           :key="item.code"
           :label="item.name"
           :value="item.code"
@@ -42,9 +42,9 @@
     </el-form-item>
 
     <el-form-item label="类型" prop="type">
-      <el-select v-model="form.region" placeholder="请选择活动区域">
+      <el-select v-model="form.type" placeholder="请选择">
         <el-option
-          v-for="item in options2"
+          v-for="item in type"
           :key="item.code"
           :label="item.name"
           :value="item.code"
@@ -53,7 +53,7 @@
     </el-form-item>
 
     <el-form-item label="语言" prop="language">
-      <el-select v-model="form.language" placeholder="请选择活动区域">
+      <el-select v-model="form.language" placeholder="请选择">
         <el-option
           v-for="item in options3"
           :key="item.code"
@@ -63,6 +63,22 @@
       </el-select>
     </el-form-item>
 
+    <el-form-item label="开始时间" prop="sorted">
+      <el-date-picker
+        v-model="form.beginTime"
+        type="date"
+        placeholder="永久不选"
+      />
+    </el-form-item>
+
+    <el-form-item label="结束时间" prop="sorted">
+      <el-date-picker
+        v-model="form.finishTime"
+        type="date"
+        placeholder="永久不选"
+      />
+    </el-form-item>
+
     <el-form-item label="序号" prop="sorted">
       <el-input v-model="form.sorted" />
     </el-form-item>
@@ -70,11 +86,11 @@
     <el-form-item label="启用" prop="isEnable">
       <el-switch v-model="form.isEnable" />
     </el-form-item>
-
+    <!--
     <el-form-item>
       <el-button type="primary" @click="handleSubmit">{{ $t('button.confirm') }}</el-button>
       <el-button @click="cancel">{{ $t('button.cancel') }}</el-button>
-    </el-form-item>
+    </el-form-item> -->
   </el-form>
 </template>
 
@@ -107,28 +123,7 @@ export default {
       }
     }
     return {
-      options: [{
-        code: '600010',
-        name: '限时活动'
-      }, {
-        code: '600011',
-        name: '新手活动'
-      }, {
-        code: '600012',
-        name: '日常活动'
-      }],
-
-      options2: [{
-        code: '600020',
-        name: '首充'
-      }, {
-        code: '600021',
-        name: '注册送'
-      }, {
-        code: '600022',
-        name: '其它'
-      }],
-
+      value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       options3: [{
         code: 'zh',
         name: '中文'
@@ -172,13 +167,27 @@ export default {
       dialogVisible: true,
       rules: {
         username: [{ validator: validateRequire }]
-      }
+      },
+      cate: [],
+      type: []
     }
   },
   created() {
-    // this.init()
+    this.init()
   },
   methods: {
+    async init() {
+      // 类目
+      let res = await api.activity.findCate({})
+      if (res && res.code === 0) {
+        this.cate = res.data
+      }
+
+      res = await api.activity.findType({})
+      if (res && res.code === 0) {
+        this.type = res.data
+      }
+    },
     async httpRequest(data) {
       const base64 = await this.getBase64(data.file)
       this.form.img = base64
@@ -208,17 +217,9 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
     },
-    async init() {
-      this.fetch()
-    },
-    async fetch() {
-      const res = api.member.get({ id: this.id })
-      if (res && res.code === 0) {
-        this.form = res.data
-      }
-    },
     handleSubmit() {
-      console.log(this.form)
+      console.log(1111)
+      this.$emit('submit')
       // this.$refs.form.validate(valid => {
       //   if (valid) {
       //     this.loading = true

@@ -185,7 +185,7 @@ export const constantRoutes = [
     meta: { title: 'content.menu', icon: 'el-icon-s-help' },
     children: [
       {
-        path: '/',
+        path: '/activity',
         name: '',
         component: () => import('@/views/activity/index'),
         meta: { title: 'content.activity.menu', icon: 'table' }
@@ -195,24 +195,6 @@ export const constantRoutes = [
         name: 'ActivityOperate',
         component: () => import('@/views/activity/index/operation'),
         meta: { title: 'content.activity.menu', icon: 'table' }
-      },
-      {
-        path: 'role',
-        name: 'Role',
-        component: () => import('@/views/system/role'),
-        meta: { title: 'system.role.menu', icon: 'table' }
-      },
-      {
-        path: 'permission',
-        name: 'Permission',
-        component: () => import('@/views/system/permission'),
-        meta: { title: 'system.permission.menu', icon: 'table' }
-      },
-      {
-        path: 'setting',
-        name: 'Setting',
-        component: () => import('@/views/system/setting'),
-        meta: { title: 'system.setting.menu', icon: 'table' }
       }
     ]
   },

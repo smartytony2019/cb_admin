@@ -15,9 +15,14 @@
 
         <!-- 活动规则 - start -->
         <el-tab-pane label="活动规则" name="rule">
-          <Rule :configform="form" />
+          <Rule :form="ruleForm" :configform="form" />
         </el-tab-pane>
         <!-- 活动规则 - end -->
+
+        <div class="btn">
+          <el-button type="primary" size="mini" @click="handleSubmit">确定</el-button>
+          <el-button size="mini" @click="$router.go(-1)">取消</el-button>
+        </div>
       </el-tabs>
     </div>
   </div>
@@ -39,68 +44,34 @@ export default {
     }
   },
   data() {
-    const validateRequire = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(this.$t('global.inputEmptyError')))
-      } else {
-        callback()
-      }
-    }
     return {
       tabPosition: 'left',
-      options: [{
-        code: '600010',
-        name: '限时活动'
-      }, {
-        code: '600011',
-        name: '新手活动'
-      }, {
-        code: '600012',
-        name: '日常活动'
-      }],
-
-      imageUrl: '',
       activeName: 'config',
 
-      texts: '',
-      // 编辑器配置
-      editorOption: {
-        placeholder: '在这里输入内容',
-        modules: {
-          toolbar: [
-            ['bold', 'italic', 'underline', 'strike'], //  加粗、倾斜、下划线、删除线
-            ['blockquote', 'code-block'], // 引用代码块
-            [{ 'header': 1 }, { 'header': 2 }], // 标题，键值对应的形式，1，2 表示字体大小
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }], // 列表
-            [{ 'script': 'sub' }, { 'script': 'super' }], // 上下标
-            [{ 'indent': -1 }, { 'indent': +1 }], // 缩进
-            [{ 'direction': 'rtl' }], // 文本方向
-            [{ 'size': ['small', false, 'large', 'huge'] }], // 字体大小
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }], // 几级标题
-            [{ 'color': [] }, { 'background': [] }], // 字体颜色，字体背景颜色
-            [{ 'font': [] }], // 字体
-            [{ 'align': [] }], // 对齐方式
-            ['clean'], // 清除
-            ['image', 'video'] // 上传图片、上传视频
-          ]
-        }
-      },
-
-      loading: false,
-      userListOptions: [],
-      dialogVisible: true,
-      rules: {
-        username: [{ validator: validateRequire }]
-      },
       form: {
-        cateName: '',
+        cateCode: '',
         title: '',
         img: '',
         content: '',
         sorted: '',
         type: '',
+        beginTime: '',
+        finishTime: '',
         language: '',
-        isEnable: ''
+        isEnable: true
+      },
+      ruleForm: {
+        cycle: '',
+        days: '',
+        withdrawBetMul: '',
+        jackpotBetMul: '',
+        calcMode: '',
+        receiveMode: '',
+        money: '',
+        symbol: '',
+        limitItem: '',
+        limitLev: '',
+        items: []
       }
     }
   },
@@ -145,8 +116,9 @@ export default {
         this.form = res.data
       }
     },
-    handleSubmit() {
-      console.log(this.form)
+    async handleSubmit() {
+      const res = await api.activity.create({ ...this.form, ...this.ruleForm })
+      console.log(res)
       // this.$refs.form.validate(valid => {
       //   if (valid) {
       //     this.loading = true
@@ -171,4 +143,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn {
+  margin-top:20px;
+  width:950px;
+  display: flex;
+  justify-content: center;
+}
 </style>
