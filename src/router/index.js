@@ -181,20 +181,34 @@ export const constantRoutes = [
     path: '/activity',
     component: Layout,
     redirect: '/activity/index',
-    name: 'Activity',
+    name: 'activity',
     meta: { title: 'content.menu', icon: 'el-icon-s-help' },
     children: [
       {
-        path: '/activity',
-        name: '',
+        path: 'activity',
+        name: 'Activity',
         component: () => import('@/views/activity/index'),
         meta: { title: 'content.activity.menu', icon: 'table' }
       },
       {
+        path: 'rule',
+        name: 'Rule',
+        component: () => import('@/views/activity/index/rule'),
+        meta: { title: 'content.activity.menu', icon: 'table' },
+        hidden: true
+      },
+      {
         path: 'operate',
-        name: 'ActivityOperate',
+        name: 'Operate',
         component: () => import('@/views/activity/index/operation'),
-        meta: { title: 'content.activity.menu', icon: 'table' }
+        meta: { title: 'content.activity.menu', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'record',
+        name: 'Record',
+        component: () => import('@/views/activity/record'),
+        meta: { title: 'content.record.menu', icon: 'table' }
       }
     ]
   },

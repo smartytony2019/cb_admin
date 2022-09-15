@@ -10,17 +10,6 @@
       <span>搜索:</span>
       <el-form ref="form" :model="params" :inline="true" size="mini">
         <el-form-item>
-          <el-select v-model="params.language" clearable placeholder="语言">
-            <el-option
-              v-for="item in language"
-              :key="item.code"
-              :label="item.name"
-              :value="item.code"
-            />
-          </el-select>
-        </el-form-item>
-
-        <el-form-item>
           <el-select v-model="params.cateCode" clearable placeholder="类目">
             <el-option
               v-for="item in cate"
@@ -44,7 +33,6 @@
 
         <el-form-item>
           <el-button type="primary" @click="fetch">搜索</el-button>
-          <el-button type="info" @click="$router.push({path:'/activity/operate'})">添加</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -58,58 +46,38 @@
         size="mini"
       >
         <el-table-column
-          prop="cateName"
-          label="类目"
-          align="center"
-        />
-        <el-table-column
-          prop="title"
+          prop="activityTitle"
           label="标题"
           align="center"
         />
         <el-table-column
-          prop="type"
-          label="类型"
+          prop="username"
+          label="用户名"
           align="center"
-        >
-          <template slot-scope="scope">
-            <span>{{ formatter(type, scope.row.type) }}</span>
-          </template>
-        </el-table-column>
+        />
+        <el-table-column
+          prop="money"
+          label="创建时间"
+          align="center"
+        />
+        <el-table-column
+          prop="symbol"
+          label="赠送币种"
+          align="center"
+        />
+        <el-table-column
+          prop="status"
+          label="状态"
+          align="center"
+        />
         <el-table-column
           prop="createTime"
           label="创建时间"
           align="center"
         />
-        <el-table-column
-          prop="beginTime"
-          label="开始时间"
-          align="center"
-        />
-        <el-table-column
-          prop="finishTime"
-          label="结束时间"
-          align="center"
-        />
-        <el-table-column
-          prop="sorted"
-          label="序号"
-          align="center"
-        />
-        <el-table-column
-          prop="isEnable"
-          label="开启"
-          align="center"
-        >
-          <template slot-scope="scope">
-            <el-button v-if="scope.row.isEnable" size="mini" type="success" icon="el-icon-check" circle />
-            <el-button v-else size="mini" type="danger" icon="el-icon-close" circle />
-          </template>
-        </el-table-column>
 
         <el-table-column align="center" :label="$t('member.list.table.operate')">
           <template slot-scope="scope">
-            <el-button type="warning" size="mini" @click="$router.push({path:'/activity/rule?id='+scope.row.id})">配置规则</el-button>
             <el-button type="primary" size="mini" @click="$router.push({path:'/activity/operate?id='+scope.row.id})">编辑</el-button>
             <el-button type="success" size="mini" @click="del(scope.row.sn)">删除</el-button>
           </template>
@@ -146,7 +114,6 @@ export default {
         end: ''
       },
 
-      language: [],
       cate: [],
       type: []
     }
@@ -155,16 +122,11 @@ export default {
     this.init()
   },
   methods: {
+    /**
+     * 初始化数据
+     */
     async init() {
-
       let res = null
-      // 类目
-      res = await api.site.language({})
-      console.log('language', res)
-      if (res && res.code === 0) {
-        this.language = res.data
-      }
-
       // 类目
       res = await api.activity.findCate({})
       if (res && res.code === 0) {
@@ -177,19 +139,30 @@ export default {
         this.type = res.data
       }
 
-      // 获取数据
       this.fetch()
     },
+
+    /**
+     * 获取数据
+     */
     async fetch() {
-      const res = await api.activity.findPage(this.params)
+      const res = await api.activityRecord.findPage(this.params)
       this.list = res.data.records
       this.total = res.data.total
     },
+
+    /**
+     * 删除
+     * @param {String} sn 编号
+     */
     async del(sn) {
       const cb = async() => {
         const res = await api.activity.del({ sn })
         if (res && res.code === 0) {
-          this.$message({type: 'success', message: '删除成功!'})
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
           this.fetch()
         } else {
           this.$message({
@@ -205,6 +178,12 @@ export default {
         type: 'warning'
       }).then(cb).catch(() => {})
     },
+
+    /**
+     * 格式化
+     * @param {Array} arr 数组数据
+     * @param {Integer} code 编码
+     */
     formatter(arr, code) {
       let result = "";
       for(let i=0; i<arr.length; i++) {

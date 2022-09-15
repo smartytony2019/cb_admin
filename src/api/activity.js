@@ -5,7 +5,16 @@ import request from '@/utils/request'
  * ****************/
 
 /**
- * 登录
+ * 查找分页数据
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function find(params = {}) {
+  return request.post(`/admin/activity/find`, params)
+}
+
+/**
+ * 查找分页数据
  * @param {Object} params 参数
  * @returns Promise
  */
@@ -81,7 +90,15 @@ export async function findRuleItemType(params = {}) {
  * @param {Object} params 参数
  * @returns Promise
  */
-export async function create(params = {}) {
-  return request.post(`/admin/activity/create`, params)
+export async function operate(params = {}) {
+  return request.post(`/admin/activity/operate`, params)
 }
 
+/**
+ * 删除
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function del(params = {}) {
+  return request.post(`/admin/activity/delete/${params.sn}`, params)
+}

@@ -3,6 +3,8 @@ import * as user from './user'
 import * as bet from './bet'
 import * as lottery from './lottery'
 import * as activity from './activity'
+import * as activityRule from './activityRule'
+import * as activityRecord from './activityRecord'
 import * as site from './site'
 
 export default {
@@ -11,5 +13,7 @@ export default {
   bet,
   lottery,
   activity,
+  activityRule,
+  activityRecord,
   site
 }

@@ -209,6 +209,9 @@ const zh = {
     menu: '内容管理',
     activity: {
       menu: '活动列表'
+    },
+    record: {
+      menu: '活动记录'
     }
   },
 
