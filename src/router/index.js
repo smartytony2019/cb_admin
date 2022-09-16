@@ -82,12 +82,12 @@ export const constantRoutes = [
   {
     path: '/member',
     component: Layout,
-    redirect: '/member/member',
+    redirect: '/member/index',
     name: 'member',
     meta: { title: 'member.menu', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'member',
+        path: 'index',
         name: 'Member',
         component: () => import('@/views/member/index'),
         meta: { title: 'member.list.menu', icon: 'table' }
@@ -185,7 +185,7 @@ export const constantRoutes = [
     meta: { title: 'content.menu', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'activity',
+        path: 'index',
         name: 'Activity',
         component: () => import('@/views/activity/index'),
         meta: { title: 'content.activity.menu', icon: 'table' }

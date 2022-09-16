@@ -160,7 +160,6 @@ export default {
       let res = null
       // 类目
       res = await api.site.language({})
-      console.log('language', res)
       if (res && res.code === 0) {
         this.language = res.data
       }

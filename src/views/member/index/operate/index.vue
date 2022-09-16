@@ -1,20 +1,33 @@
+<!--
+@Author:      tony
+@Date:        2019-01-04T10:00:00+08:00
+@Description: 操作
+-->
 <template>
-  <div class="operation-container">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-      <el-form-item :label="$t('member.list.form.username')" prop="username">
-        <el-input v-model="form.username" />
-      </el-form-item>
-      <el-form-item :label="$t('member.list.form.pwd')" prop="pwd">
-        <el-input v-model="form.pwd" />
-      </el-form-item>
-      <el-form-item :label="$t('member.list.form.confirmPwd')" prop="pwd">
-        <el-input v-model="form.pwd" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm">{{ $t('button.confirm') }}</el-button>
-        <el-button @click="cancel">{{ $t('button.cancel') }}</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="operation">
+    <div class="operation-title">
+      <div class="icon">
+        <i class="el-icon-arrow-left" @click="back" />
+      </div>
+    </div>
+    <div class="operation-container">
+
+      <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+        <el-form-item :label="$t('member.list.form.username')" prop="username">
+          <el-input v-model="form.username" />
+        </el-form-item>
+        <el-form-item :label="$t('member.list.form.pwd')" prop="pwd">
+          <el-input v-model="form.pwd" />
+        </el-form-item>
+        <el-form-item :label="$t('member.list.form.confirmPwd')" prop="pwd">
+          <el-input v-model="form.pwd" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm">{{ $t('button.confirm') }}</el-button>
+          <el-button @click="cancel">{{ $t('button.cancel') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 

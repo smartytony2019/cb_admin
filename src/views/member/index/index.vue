@@ -35,20 +35,16 @@
         size="mini"
       >
         <el-table-column
-          prop="id"
-          :label="$t('member.list.table.id')"
-        />
-        <el-table-column
           prop="username"
-          :label="$t('member.list.table.username')"
+          label="用户名"
         />
         <el-table-column
           prop="money"
-          :label="$t('member.list.table.money')"
+          label="金额"
         />
         <el-table-column
-          prop="createTime"
-          :label="$t('member.list.table.createTime')"
+          prop="type"
+          label="类型"
         />
 
         <el-table-column align="center" :label="$t('member.list.table.operate')">
@@ -69,21 +65,15 @@
     <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
     <!-- 分页 - end -->
 
-    <!-- 弹框(添加/修改) - start -->
-    <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false" />
-    </el-dialog>
-    <!-- 弹框(添加/修改) - end -->
   </div>
 </template>
 
 <script>
 import api from '@/api/index'
-import CreateOrUpdate from './components/CreateOrUpdate'
 import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination, CreateOrUpdate },
+  components: { Pagination },
   data() {
     return {
       id: 0,
