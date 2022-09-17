@@ -71,7 +71,7 @@
 
     <!-- 弹框(添加/修改) - start -->
     <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false"/>
+      <create-or-update :id="id" @cancel="dialogVisible = false" />
     </el-dialog>
     <!-- 弹框(添加/修改) - end -->
   </div>

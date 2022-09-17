@@ -1,6 +1,6 @@
 import * as member from './member'
 import * as user from './user'
-import * as bet from './bet'
+import * as hash from './hash'
 import * as lottery from './lottery'
 import * as activity from './activity'
 import * as activityRule from './activityRule'
@@ -10,7 +10,7 @@ import * as site from './site'
 export default {
   member,
   user,
-  bet,
+  hash,
   lottery,
   activity,
   activityRule,

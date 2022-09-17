@@ -110,6 +110,7 @@ import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import dayjs from 'dayjs'
 
 export default {
   name: 'CreateOrUpdate',
@@ -248,6 +249,8 @@ export default {
       })
     },
     async handleSubmit() {
+      this.form.beginTime = dayjs(this.form.beginTime).format('YYYY-MM-DD')
+      this.form.finishTime = dayjs(this.form.finishTime).format('YYYY-MM-DD')
       const cb = async(valid) => {
         if (valid) {
           const res = await api.activity.operate(this.form)

@@ -70,3 +70,25 @@
     margin-bottom:0;
   }
 }
+
+
+span {
+  &.normal {
+    color: #606266;
+  }
+  &.red {
+    color: #F56C6C;
+  }
+  &.blue {
+    color: #E6A23C;
+  }
+}
+
+
+.el-table .warning-row {
+  background: oldlace;
+}
+
+.el-table .success-row {
+  background: #f0f9eb;
+}

@@ -57,17 +57,18 @@ export const constantRoutes = [
 
   // 注单管理
   {
-    path: '/bet',
+    path: '/hash',
     component: Layout,
-    redirect: '/bet/bet',
+    redirect: '/hash/bet',
     name: 'bet',
-    meta: { title: 'bet.menu', icon: 'el-icon-s-help' },
+    meta: { title: '注单管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'bet',
         name: 'Bet',
-        component: () => import('@/views/bet/lottery'),
-        meta: { title: 'bet.lottery.menu', icon: 'table' }
+        component: () => import('@/views/hash/bet'),
+        // meta: { title: 'bet.lottery.menu', icon: 'table' },
+        meta: { title: '注单列表', icon: 'table' }
       },
       {
         path: 'draw',

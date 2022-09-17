@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     routerTitle(item) {
-      return this.$t(item)
+      return item
+      // return this.$t(item)
     },
     hasOneShowingChild(children = [], parent) {
       const showingChildren = children.filter(item => {
