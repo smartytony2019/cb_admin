@@ -5,12 +5,21 @@ import request from '@/utils/request'
  * ****************/
 
 /**
- * 登录
+ * 查询注单
  * @param {Object} params 参数
  * @returns Promise
  */
 export async function findBetPage(params = {}) {
   return request.post(`/admin/hash/findBetPage/${params.current}/${params.size}`, params)
+}
+
+/**
+ * 查询离线注单
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function findOfflineBetPage(params = {}) {
+  return request.post(`/admin/hash/findOfflineBetPage/${params.current}/${params.size}`, params)
 }
 
 /**

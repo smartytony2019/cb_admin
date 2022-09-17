@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: 'draw',
         name: 'Draw',
         component: () => import('@/views/bet/draw'),
-        meta: { title: 'bet.draw.menu', icon: 'tree' }
+        meta: { title: '离线注单', icon: 'tree' }
       }
     ]
   },
