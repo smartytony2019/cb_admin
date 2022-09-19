@@ -71,9 +71,9 @@ export const constantRoutes = [
         meta: { title: '注单列表', icon: 'table' }
       },
       {
-        path: 'draw',
-        name: 'Draw',
-        component: () => import('@/views/bet/draw'),
+        path: 'offline',
+        name: 'Offline',
+        component: () => import('@/views/hash/bet/offline'),
         meta: { title: '离线注单', icon: 'tree' }
       }
     ]

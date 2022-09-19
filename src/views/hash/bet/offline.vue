@@ -58,11 +58,6 @@
           align="center"
         />
         <el-table-column
-          prop="playName"
-          label="玩法"
-          align="center"
-        />
-        <el-table-column
           prop="content"
           label="内容"
           align="center"
@@ -94,12 +89,7 @@
         />
         <el-table-column
           prop="money"
-          label="单注金额"
-          align="center"
-        />
-        <el-table-column
-          prop="moneyAmount"
-          label="单注总额"
+          label="金额"
           align="center"
         />
         <el-table-column
@@ -201,7 +191,7 @@ export default {
       this.fetch()
     },
     fetch() {
-      api.hash.findBetPage(this.params).then(response => {
+      api.hash.findOfflineBetPage(this.params).then(response => {
         this.list = response.data.records
         this.total = response.data.total
       })
@@ -231,3 +221,4 @@ export default {
   }
 }
 </script>
+
