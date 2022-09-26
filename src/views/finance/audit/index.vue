@@ -68,22 +68,15 @@
     <!-- 分页 - start -->
     <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
     <!-- 分页 - end -->
-
-    <!-- 弹框(添加/修改) - start -->
-    <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false" />
-    </el-dialog>
-    <!-- 弹框(添加/修改) - end -->
   </div>
 </template>
 
 <script>
 import api from '@/api/index'
-import CreateOrUpdate from './components/CreateOrUpdate'
 import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination, CreateOrUpdate },
+  components: { Pagination },
   data() {
     return {
       id: 0,

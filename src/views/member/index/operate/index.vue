@@ -35,7 +35,7 @@
 import api from '@/api'
 
 export default {
-  name: 'CreateOrUpdate',
+  name: 'Operate',
   props: {
     id: {
       type: Number,

@@ -92,3 +92,11 @@ span {
 .el-table .success-row {
   background: #f0f9eb;
 }
+
+.app-container {
+  .el-button--mini {
+    &.is-circle {
+      padding:0;
+    }
+  }
+}

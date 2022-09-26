@@ -47,19 +47,21 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'dashboard.menu', icon: 'dashboard' }
-    }]
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: '面板', icon: 'dashboard' }
+      }
+    ]
   },
 
   // 注单管理
   {
     path: '/hash',
     component: Layout,
-    redirect: '/hash/bet',
+    redirect: '',
     name: 'bet',
     meta: { title: '注单管理', icon: 'el-icon-s-help' },
     children: [
@@ -83,21 +85,50 @@ export const constantRoutes = [
   {
     path: '/member',
     component: Layout,
-    redirect: '/member/index',
+    redirect: '',
     name: 'member',
-    meta: { title: 'member.menu', icon: 'el-icon-s-help' },
+    meta: { title: '会员管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'index',
-        name: 'Member',
+        name: 'MemberIndex',
         component: () => import('@/views/member/index'),
-        meta: { title: 'member.list.menu', icon: 'table' }
+        meta: { title: '会员列表', icon: 'table' }
       },
       {
         path: 'flow',
-        name: 'Flow',
+        name: 'MemberFlow',
         component: () => import('@/views/member/flow'),
-        meta: { title: 'member.flow.menu', icon: 'tree' }
+        meta: { title: '会员流水', icon: 'tree' }
+      },
+      {
+        path: 'record',
+        name: 'MemberRecord',
+        component: () => import('@/views/member/record'),
+        meta: { title: '会员记录', icon: 'tree' }
+      }
+    ]
+  },
+
+  // 财务管理
+  {
+    path: '/finance',
+    component: Layout,
+    redirect: '',
+    name: 'finance',
+    meta: { title: '财务管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'recharge',
+        name: 'FinanceRecharge',
+        component: () => import('@/views/finance/index'),
+        meta: { title: '存款/提款', icon: 'table' }
+      },
+      {
+        path: 'audit',
+        name: 'FinanceAudit',
+        component: () => import('@/views/finance/audit'),
+        meta: { title: '打码审计', icon: 'tree' }
       }
     ]
   },
@@ -121,29 +152,6 @@ export const constantRoutes = [
         name: 'Commission',
         component: () => import('@/views/agent/commission'),
         meta: { title: 'agent.commission.menu', icon: 'tree' }
-      }
-    ]
-  },
-
-  // 财务管理
-  {
-    path: '/finance',
-    component: Layout,
-    redirect: '/finance/recharge',
-    name: 'finance',
-    meta: { title: 'finance.menu', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'recharge',
-        name: 'Recharge',
-        component: () => import('@/views/finance/recharge'),
-        meta: { title: 'finance.recharge.menu', icon: 'table' }
-      },
-      {
-        path: 'withdraw',
-        name: 'Withdraw',
-        component: () => import('@/views/finance/withdraw'),
-        meta: { title: 'finance.withdraw.menu', icon: 'tree' }
       }
     ]
   },
