@@ -1,17 +1,17 @@
 <!--
 @Author:      tony
 @Date:        2019-01-04T10:00:00+08:00
-@Description: 代理列表
+@Description: 代理佣金记录
 -->
 <template>
   <div class="app-container">
     <!-- 搜索框 - start -->
     <el-form ref="form" :model="params" :inline="true" size="mini">
       <el-form-item>
-        <el-input v-model="params.username" :placeholder="$t('placeholder.username')" />
+        <el-input v-model="params.username" :placeholder="用户名" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleSearch">搜索</el-button>
+        <el-button type="primary" @click="fetch">搜索</el-button>
       </el-form-item>
     </el-form>
     <!-- 搜索框 - end -->
@@ -26,26 +26,29 @@
         <el-table-column
           prop="username"
           label="用户名"
+          align="center"
         />
         <el-table-column
-          prop="pusername"
-          label="上级用户名"
+          prop="sn"
+          label="序号"
+          align="center"
         />
         <el-table-column
-          prop="level"
-          label="层级"
+          prop="money"
+          label="佣金"
+          align="center"
+        />
+        <el-table-column
+          prop="createTime"
+          label="创建时间"
+          align="center"
+        />
+        <el-table-column
+          prop="status"
+          label="状态"
+          align="center"
         />
 
-        <el-table-column align="center" :label="$t('member.list.table.operate')">
-          <template slot-scope="scope">
-            <el-button v-if="scope.row.level > 1" type="success" size="mini" @click="handleChild(0, scope.row)">
-              查看上级
-            </el-button>
-            <el-button v-if="scope.row.child" type="primary" size="mini" @click="handleChild(1, scope.row)">
-              查看下级
-            </el-button>
-          </template>
-        </el-table-column>
       </el-table>
     </template>
     <!-- 列表 - end -->
@@ -89,32 +92,10 @@ export default {
       this.fetch()
     },
     async fetch() {
-      const res = await api.agent.findPage(this.params)
+      const res = await api.agent.findCommissionRecordPage(this.params)
       if (res && res.code === 0) {
         this.list = res.data.records
         this.total = res.data.total
-      }
-    },
-    handleSearch() {
-      this.params.level = 0
-      this.params.puid = 0
-      this.params.child = ''
-      this.fetch()
-    },
-    handleChild(flag, row) {
-      this.params.level = row.level
-      // 查看上级
-      if (flag === 0) {
-        this.params.puid = row.puid
-        this.params.child = ''
-        this.fetch()
-      }
-
-      // 查看下级
-      if (flag === 1) {
-        this.params.puid = 0
-        this.params.child = row.child
-        this.fetch()
       }
     }
   }

@@ -139,19 +139,44 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/agent/index',
     name: 'agent',
-    meta: { title: 'agent.menu', icon: 'el-icon-s-help' },
+    meta: { title: '代理管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'index',
-        name: 'Index',
+        name: 'AgentIndex',
         component: () => import('@/views/agent/index'),
-        meta: { title: 'agent.index.menu', icon: 'table' }
+        meta: { title: '代理列表', icon: 'table' }
       },
       {
         path: 'commission',
         name: 'Commission',
         component: () => import('@/views/agent/commission'),
-        meta: { title: 'agent.commission.menu', icon: 'tree' }
+        meta: { title: '佣金列表', icon: 'tree' }
+      },
+      {
+        path: 'commission/record',
+        name: 'AgentCommissionRecord',
+        component: () => import('@/views/agent/commission/record'),
+        meta: { title: '佣金记录', icon: 'table' }
+      },
+      {
+        path: 'domain',
+        name: 'AgentDomain',
+        component: () => import('@/views/agent/domain'),
+        meta: { title: '推广域名', icon: 'table' }
+      },
+      {
+        path: 'domain/operate',
+        name: 'AgentDomain',
+        component: () => import('@/views/agent/domain/operate'),
+        meta: { title: '推广域名操作', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'rebate',
+        name: 'AgentRebate',
+        component: () => import('@/views/agent/rebate'),
+        meta: { title: '代理返佣比', icon: 'table' }
       }
     ]
   },
