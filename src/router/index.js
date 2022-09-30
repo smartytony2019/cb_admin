@@ -67,15 +67,15 @@ export const constantRoutes = [
     children: [
       {
         path: 'hash',
-        name: 'HashBetIndex',
-        component: () => import('@/views/hash/bet'),
+        name: 'BetHash',
+        component: () => import('@/views/bet/hash'),
         // meta: { title: 'bet.lottery.menu', icon: 'table' },
         meta: { title: '哈希注单', icon: 'table' }
       },
       {
         path: 'offline',
-        name: 'HashBetOffline',
-        component: () => import('@/views/hash/bet/offline'),
+        name: 'BetHashOffline',
+        component: () => import('@/views/bet/hash/offline'),
         meta: { title: '哈希注单(离线)', icon: 'tree' }
       }
     ]
@@ -186,26 +186,32 @@ export const constantRoutes = [
     path: '/hash',
     component: Layout,
     redirect: '/hash/index',
-    name: 'lottery',
+    name: 'Hash',
     meta: { title: '哈希管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'index',
-        name: 'HashIndex',
-        component: () => import('@/views/lottery/category'),
-        meta: { title: 'lottery.category.menu', icon: 'table' }
-      },
-      {
         path: 'game',
-        name: 'Game',
-        component: () => import('@/views/lottery/game'),
-        meta: { title: 'lottery.game.menu', icon: 'tree' }
+        name: 'HashGame',
+        component: () => import('@/views/lottery/category'),
+        meta: { title: '游戏列表', icon: 'table' }
       },
       {
         path: 'play',
-        name: 'Play',
+        name: 'HashPlay',
+        component: () => import('@/views/lottery/game'),
+        meta: { title: '玩法列表', icon: 'tree' }
+      },
+      {
+        path: 'odds',
+        name: 'HashOdds',
         component: () => import('@/views/lottery/play'),
-        meta: { title: 'lottery.play.menu', icon: 'tree' }
+        meta: { title: '赔率列表', icon: 'tree' }
+      },
+      {
+        path: 'result',
+        name: 'HashResult',
+        component: () => import('@/views/lottery/play'),
+        meta: { title: '开奖结果', icon: 'tree' }
       }
     ]
   },
