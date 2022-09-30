@@ -59,24 +59,24 @@ export const constantRoutes = [
 
   // 注单管理
   {
-    path: '/hash',
+    path: '/bet',
     component: Layout,
-    redirect: '',
+    redirect: '/bet/index',
     name: 'bet',
     meta: { title: '注单管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'bet',
-        name: 'Bet',
+        path: 'hash',
+        name: 'HashBetIndex',
         component: () => import('@/views/hash/bet'),
         // meta: { title: 'bet.lottery.menu', icon: 'table' },
-        meta: { title: '注单列表', icon: 'table' }
+        meta: { title: '哈希注单', icon: 'table' }
       },
       {
         path: 'offline',
-        name: 'Offline',
+        name: 'HashBetOffline',
         component: () => import('@/views/hash/bet/offline'),
-        meta: { title: '离线注单', icon: 'tree' }
+        meta: { title: '哈希注单(离线)', icon: 'tree' }
       }
     ]
   },
@@ -176,22 +176,22 @@ export const constantRoutes = [
         path: 'rebate',
         name: 'AgentRebate',
         component: () => import('@/views/agent/rebate'),
-        meta: { title: '代理返佣比', icon: 'table' }
+        meta: { title: '返佣比', icon: 'table' }
       }
     ]
   },
 
-  // 彩票管理
+  // 哈希管理
   {
-    path: '/lottery',
+    path: '/hash',
     component: Layout,
-    redirect: '/lottery/lottery',
+    redirect: '/hash/index',
     name: 'lottery',
-    meta: { title: 'lottery.menu', icon: 'el-icon-s-help' },
+    meta: { title: '哈希管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'lottery',
-        name: 'Lottery',
+        path: 'index',
+        name: 'HashIndex',
         component: () => import('@/views/lottery/category'),
         meta: { title: 'lottery.category.menu', icon: 'table' }
       },

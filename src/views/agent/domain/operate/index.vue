@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import api from '@/api'
+// import api from '@/api'
 
 export default {
   name: 'Operate',
@@ -59,7 +59,6 @@ export default {
     },
     async fetch() {
     },
-
     async back() {
       this.$router.go(-1)
     }

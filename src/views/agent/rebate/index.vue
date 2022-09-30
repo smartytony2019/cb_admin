@@ -1,3 +1,8 @@
+<!--
+@Author:      tony
+@Date:        2019-01-04T10:00:00+08:00
+@Description: 返佣比
+-->
 <template>
   <div class="app-container">
     <!-- 搜索框 - start -->
@@ -21,7 +26,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="fetchData">{{ $t('button.search') }}</el-button>
+        <el-button type="primary" @click="fetch">{{ $t('button.search') }}</el-button>
         <el-button type="info" @click="onSubmit">{{ $t('button.add') }}</el-button>
       </el-form-item>
     </el-form>
@@ -36,19 +41,19 @@
       >
         <el-table-column
           prop="id"
-          :label="$t('member.list.table.id')"
+          label="id"
         />
         <el-table-column
-          prop="username"
-          :label="$t('member.list.table.username')"
+          prop="min"
+          label="最小"
         />
         <el-table-column
-          prop="money"
-          :label="$t('member.list.table.money')"
+          prop="max"
+          label="最大"
         />
         <el-table-column
-          prop="createTime"
-          :label="$t('member.list.table.createTime')"
+          prop="rebate"
+          label="返佣比"
         />
 
         <el-table-column align="center" :label="$t('member.list.table.operate')">
@@ -65,29 +70,16 @@
     </template>
     <!-- 列表 - end -->
 
-    <!-- 分页 - start -->
-    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
-    <!-- 分页 - end -->
-
-    <!-- 弹框(添加/修改) - start -->
-    <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false" />
-    </el-dialog>
-    <!-- 弹框(添加/修改) - end -->
   </div>
 </template>
 
 <script>
 import api from '@/api/index'
-import CreateOrUpdate from './components/CreateOrUpdate'
-import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination, CreateOrUpdate },
   data() {
     return {
       id: 0,
-      dialogVisible: false,
       total: 0,
       list: null,
       listLoading: true,
@@ -101,17 +93,14 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.fetch()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      api.member.getList(this.params).then(response => {
-        console.log(response)
-        this.list = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+    async fetch() {
+      const res = await api.agent.findRebate(this.params)
+      if (res && res.code === 0) {
+        this.list = res.data
+      }
     },
     onSubmit() {
       console.log(111)
