@@ -181,36 +181,42 @@ export const constantRoutes = [
     ]
   },
 
-  // 哈希管理
+  // 游戏管理
   {
-    path: '/hash',
+    path: '/game',
     component: Layout,
-    redirect: '/hash/index',
-    name: 'Hash',
-    meta: { title: '哈希管理', icon: 'el-icon-s-help' },
+    redirect: '/game/hash',
+    name: 'Game',
+    meta: { title: '游戏管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'game',
-        name: 'HashGame',
-        component: () => import('@/views/lottery/category'),
+        path: 'category',
+        name: 'GameCategory',
+        component: () => import('@/views/game/category'),
+        meta: { title: '游戏类目', icon: 'table' }
+      },
+      {
+        path: 'index',
+        name: 'GameIndex',
+        component: () => import('@/views/game/index'),
         meta: { title: '游戏列表', icon: 'table' }
       },
       {
         path: 'play',
-        name: 'HashPlay',
-        component: () => import('@/views/lottery/game'),
+        name: 'GamePlay',
+        component: () => import('@/views/game/play'),
         meta: { title: '玩法列表', icon: 'tree' }
       },
       {
         path: 'odds',
-        name: 'HashOdds',
-        component: () => import('@/views/lottery/play'),
+        name: 'GameOdds',
+        component: () => import('@/views/game/odds'),
         meta: { title: '赔率列表', icon: 'tree' }
       },
       {
         path: 'result',
-        name: 'HashResult',
-        component: () => import('@/views/lottery/play'),
+        name: 'GameResult',
+        component: () => import('@/views/game/result'),
         meta: { title: '开奖结果', icon: 'tree' }
       }
     ]
@@ -222,13 +228,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/activity/index',
     name: 'activity',
-    meta: { title: 'content.menu', icon: 'el-icon-s-help' },
+    meta: { title: '内容管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'index',
         name: 'Activity',
         component: () => import('@/views/activity/index'),
-        meta: { title: 'content.activity.menu', icon: 'table' }
+        meta: { title: '活动列表', icon: 'table' }
       },
       {
         path: 'rule',
@@ -248,7 +254,7 @@ export const constantRoutes = [
         path: 'record',
         name: 'Record',
         component: () => import('@/views/activity/record'),
-        meta: { title: 'content.record.menu', icon: 'table' }
+        meta: { title: '活动记录', icon: 'table' }
       }
     ]
   },
@@ -259,7 +265,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/system/user',
     name: 'system',
-    meta: { title: 'system.menu', icon: 'el-icon-s-help' },
+    meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'user',
@@ -283,7 +289,7 @@ export const constantRoutes = [
         path: 'setting',
         name: 'Setting',
         component: () => import('@/views/system/setting'),
-        meta: { title: 'system.setting.menu', icon: 'table' }
+        meta: { title: '系统配置', icon: 'table' }
       }
     ]
   },

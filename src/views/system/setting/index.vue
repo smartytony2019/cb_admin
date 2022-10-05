@@ -1,75 +1,52 @@
 <template>
-  <div class="app-container">
-    <!-- 搜索框 - start -->
-    <el-form ref="form" :model="params" :inline="true" size="mini">
-      <el-form-item>
-        <el-input v-model="params.username" :placeholder="$t('placeholder.username')" />
-      </el-form-item>
-      <el-form-item>
-        <el-date-picker
-          v-model="params.start"
-          type="date"
-          :placeholder="$t('placeholder.dateRange.start')"
-          size="mini"
-        />
-        -
-        <el-date-picker
-          v-model="params.end"
-          type="date"
-          :placeholder="$t('placeholder.dateRange.end')"
-          size="mini"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="fetchData">{{ $t('button.search') }}</el-button>
-        <el-button type="info" @click="onSubmit">{{ $t('button.add') }}</el-button>
-      </el-form-item>
-    </el-form>
-    <!-- 搜索框 - end -->
+  <div class="app-container system-config">
+    <el-tabs v-model="activeName" :tab-position="tabPosition">
+      <el-tab-pane v-for="(item,index) in cate" :key="index" :label="item.name" :name="item.code+''">
+        <div class="item-list">
+          <div v-for="(it, idx) in items" :key="idx" class="item">
+            <div class="title">
+              {{ it.comment }}：
+            </div>
 
-    <!-- 列表 - start -->
-    <template>
-      <el-table
-        :data="list"
-        style="width: 100%"
-        size="mini"
-      >
-        <el-table-column prop="username" :label="$t('member.flow.table.username')" />
-        <el-table-column prop="beforeMoney" :label="$t('member.flow.table.beforeMoney')" />
-        <el-table-column prop="afterMoney" :label="$t('member.flow.table.afterMoney')" />
-        <el-table-column prop="flowMoney" :label="$t('member.flow.table.flowMoney')" />
-        <el-table-column prop="itemCodeDefault" :label="$t('member.flow.table.item')" />
-        <el-table-column prop="createTime" :label="$t('member.flow.table.createTime')" />
-      </el-table>
-    </template>
-    <!-- 列表 - end -->
+            <div class="content">
+              <template v-if="it.type === 'Boolean'">
+                <el-switch
+                  v-model="it.value"
+                  active-color="#13ce66"
+                  inactive-color="#dcdfe6"
+                  active-text="开启"
+                  inactive-text="关闭"
+                />
+              </template>
+              <template v-if="it.type === 'String'">
+                <el-input v-model="it.value" />
+              </template>
+              <template v-if="it.type === 'Integer'">
+                <el-input v-model="it.value" />
+              </template>
+            </div>
+          </div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
 
-    <!-- 分页 - start -->
-    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
-    <!-- 分页 - end -->
-
-    <!-- 弹框(添加/修改) - start -->
-    <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false" />
-    </el-dialog>
-    <!-- 弹框(添加/修改) - end -->
+    <div class="btn">
+      <el-button type="primary" @click="handleSubmit">确定</el-button>
+    </div>
   </div>
+
 </template>
 
 <script>
 import api from '@/api/index'
-import CreateOrUpdate from './components/CreateOrUpdate'
-import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination, CreateOrUpdate },
   data() {
     return {
-      id: 0,
-      dialogVisible: false,
-      total: 0,
+      tabPosition: 'left',
+      activeName: '1',
       list: null,
-      listLoading: true,
+      cate: null,
       params: {
         current: 1,
         size: 10,
@@ -79,31 +56,67 @@ export default {
       }
     }
   },
-  watch: {
-    '$i18n.locale'(newValue) {
-      this.fetchData()
+  computed: {
+    items() {
+      return this.list.filter(f => f.cate === Number(this.activeName))
     }
   },
   created() {
-    this.fetchData()
+    this.fetch()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      api.memberFlow.getList(this.params).then(response => {
-        this.list = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+    async fetch() {
+      const res = await api.site.config(this.params)
+      if (res && res.code === 0) {
+        res.data.list.map(m => {
+          if (m.type === 'Boolean') {
+            m.value = m.value === 'true'
+          }
+
+          if (m.type === 'Integer') {
+            m.value = Number(m.value)
+          }
+        })
+        this.list = res.data.list
+        this.cate = res.data.cate
+      }
     },
-    onSubmit() {
-      console.log(111)
-    },
-    createOrUpdate(id) {
-      this.dialogVisible = true
-      this.id = id
-      console.log(id)
+    handleSubmit() {
+      console.log(this.list)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.system-config {
+  .btn {
+    display: flex;
+    justify-content: center;
+  }
+  .item-list {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding:10px 20px;
+
+    .item {
+      width:30%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding:10px 0;
+      height:45px;
+      .title {
+        padding-right: 5px;
+      }
+    }
+  }
+
+  ::v-deep input {
+    height:30px;
+  }
+}
+
+</style>

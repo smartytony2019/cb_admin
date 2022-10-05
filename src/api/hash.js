@@ -5,6 +5,33 @@ import request from '@/utils/request'
  * ****************/
 
 /**
+ * 查询玩法
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function findPlay(params = {}) {
+  return request.post(`/admin/hash/findPlay`, params)
+}
+
+/**
+ * 查询赔率
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function findOdds(params = {}) {
+  return request.post(`/admin/hash/findOdds/${params.gameId}`, params)
+}
+
+/**
+ * 查询赔率
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function findResult(params = {}) {
+  return request.post(`/admin/hash/findResult/${params.current}/${params.size}`, params)
+}
+
+/**
  * 查询注单
  * @param {Object} params 参数
  * @returns Promise

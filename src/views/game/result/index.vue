@@ -21,7 +21,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="fetchData">{{ $t('button.search') }}</el-button>
+        <el-button type="primary" @click="fetch">{{ $t('button.search') }}</el-button>
         <el-button type="info" @click="onSubmit">{{ $t('button.add') }}</el-button>
       </el-form-item>
     </el-form>
@@ -35,29 +35,42 @@
         size="mini"
       >
         <el-table-column
-          prop="id"
-          :label="$t('member.list.table.id')"
+          prop="sn"
+          label="序号"
+        />
+        <el-table-column
+          prop="gameId"
+          label="游戏"
+        />
+        <el-table-column
+          prop="playId"
+          label="玩法"
         />
         <el-table-column
           prop="username"
-          :label="$t('member.list.table.username')"
+          label="用户名"
         />
         <el-table-column
-          prop="money"
-          :label="$t('member.list.table.money')"
+          prop="toAddress"
+          label="转帐地址"
         />
         <el-table-column
-          prop="createTime"
-          :label="$t('member.list.table.createTime')"
+          prop="network"
+          label="网络"
+        />
+        <el-table-column
+          prop="blockHeight"
+          label="哈希高度"
+        />
+        <el-table-column
+          prop="blockHash"
+          label="哈希块"
         />
 
         <el-table-column align="center" :label="$t('member.list.table.operate')">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="createOrUpdate(scope.row.id)">
-              {{ $t('button.edit') }}
-            </el-button>
-            <el-button type="success" size="mini" @click="createOrUpdate(scope.row.id)">
-              {{ $t('button.delete') }}
+              已开奖
             </el-button>
           </template>
         </el-table-column>
@@ -65,25 +78,13 @@
     </template>
     <!-- 列表 - end -->
 
-    <!-- 分页 - start -->
-    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
-    <!-- 分页 - end -->
-
-    <!-- 弹框(添加/修改) - start -->
-    <el-dialog v-if="dialogVisible" :title="$t('global.operation')" :visible.sync="dialogVisible">
-      <create-or-update :id="id" @cancel="dialogVisible = false" />
-    </el-dialog>
-    <!-- 弹框(添加/修改) - end -->
   </div>
 </template>
 
 <script>
 import api from '@/api/index'
-import CreateOrUpdate from './components/CreateOrUpdate'
-import Pagination from '@/components/Pagination'
 
 export default {
-  components: { Pagination, CreateOrUpdate },
   data() {
     return {
       id: 0,
@@ -101,17 +102,18 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.init()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      api.member.getList(this.params).then(response => {
-        console.log(response)
-        this.list = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+    async init() {
+      this.fetch()
+    },
+    async fetch() {
+      const res = await api.hash.findResult(this.params)
+      if (res && res.code === 0) {
+        this.list = res.data.records
+        this.total = res.data.total
+      }
     },
     onSubmit() {
       console.log(111)

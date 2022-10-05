@@ -1,7 +1,7 @@
 import * as member from './member'
 import * as user from './user'
 import * as hash from './hash'
-import * as lottery from './lottery'
+import * as game from './game'
 import * as activity from './activity'
 import * as activityRule from './activityRule'
 import * as activityRecord from './activityRecord'
@@ -12,7 +12,7 @@ export default {
   member,
   user,
   hash,
-  lottery,
+  game,
   activity,
   activityRule,
   activityRecord,

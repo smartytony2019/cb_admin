@@ -5,6 +5,15 @@ import request from '@/utils/request'
  * ****************/
 
 /**
+ * 系统配置
+ * @param {Object} params 参数
+ * @returns Promise
+ */
+export async function config(params = {}) {
+  return request.post(`/admin/config`, params)
+}
+
+/**
  * 币种
  * @param {Object} params 参数
  * @returns Promise
