@@ -1,3 +1,8 @@
+<!--
+@Author:      tony
+@Date:        2022-10-07T10:00:00+08:00
+@Description: 打码审计
+-->
 <template>
   <div class="app-container">
     <!-- 搜索框 - start -->
@@ -21,7 +26,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="fetchData">{{ $t('button.search') }}</el-button>
+        <el-button type="primary" @click="fetch">{{ $t('button.search') }}</el-button>
         <el-button type="info" @click="onSubmit">{{ $t('button.add') }}</el-button>
       </el-form-item>
     </el-form>
@@ -34,31 +39,18 @@
         style="width: 100%"
         size="mini"
       >
-        <el-table-column
-          prop="id"
-          :label="$t('member.list.table.id')"
-        />
-        <el-table-column
-          prop="username"
-          :label="$t('member.list.table.username')"
-        />
-        <el-table-column
-          prop="money"
-          :label="$t('member.list.table.money')"
-        />
-        <el-table-column
-          prop="createTime"
-          :label="$t('member.list.table.createTime')"
-        />
-
+        <el-table-column prop="username" label="会员名" />
+        <el-table-column prop="sn" label="订单号" />
+        <el-table-column prop="amount" label="打码量" />
+        <el-table-column prop="beforeAmount" label="之前打码量" />
+        <el-table-column prop="requireAmount" label="要求打码量" />
+        <el-table-column prop="finishAmount" label="完成打码量" />
+        <el-table-column prop="status" label="状态" />
+        <el-table-column prop="createTime" label="创建时间" />
+        <el-table-column prop="updateTime" label="更新时间" />
         <el-table-column align="center" :label="$t('member.list.table.operate')">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="createOrUpdate(scope.row.id)">
-              {{ $t('button.edit') }}
-            </el-button>
-            <el-button type="success" size="mini" @click="createOrUpdate(scope.row.id)">
-              {{ $t('button.delete') }}
-            </el-button>
+            <el-button type="warning" size="mini" @click="$router.push({path:'/activity/rule?id='+scope.row.id})">标记完成</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +58,7 @@
     <!-- 列表 - end -->
 
     <!-- 分页 - start -->
-    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
+    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetch" />
     <!-- 分页 - end -->
   </div>
 </template>
@@ -94,17 +86,19 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.init()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      api.member.getList(this.params).then(response => {
-        console.log(response)
-        this.list = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+    async init() {
+      this.fetch()
+    },
+    async fetch() {
+      console.log(222)
+      const res = await api.finance.findAuditPage(this.params)
+      if (res && res.code === 0) {
+        this.list = res.data.records
+        this.total = res.data.total
+      }
     },
     onSubmit() {
       console.log(111)

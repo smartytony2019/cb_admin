@@ -7,6 +7,7 @@ import * as activityRule from './activityRule'
 import * as activityRecord from './activityRecord'
 import * as site from './site'
 import * as agent from './agent'
+import * as finance from './finance'
 
 export default {
   member,
@@ -17,5 +18,6 @@ export default {
   activityRule,
   activityRecord,
   site,
-  agent
+  agent,
+  finance
 }

@@ -113,7 +113,8 @@
             <el-button type="primary" size="mini" @click="$router.push({path:'/activity/operate?id='+scope.row.id})">编辑</el-button>
             <el-button type="success" size="mini" @click="del(scope.row.sn)">删除</el-button>
           </template>
-        </el-table-column></el-table>
+        </el-table-column>
+      </el-table>
     </template>
     <!-- 列表 - end -->
 

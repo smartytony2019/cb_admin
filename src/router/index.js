@@ -119,8 +119,8 @@ export const constantRoutes = [
     meta: { title: '财务管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'recharge',
-        name: 'FinanceRecharge',
+        path: 'index',
+        name: 'FinanceIndex',
         component: () => import('@/views/finance/index'),
         meta: { title: '存款/提款', icon: 'table' }
       },

@@ -1,3 +1,8 @@
+<!--
+@Author:      tony
+@Date:        2022-10-07T10:00:00+08:00
+@Description: 财务管理
+-->
 <template>
   <div class="app-container">
     <!-- 搜索框 - start -->
@@ -21,7 +26,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="fetchData">{{ $t('button.search') }}</el-button>
+        <el-button type="primary" @click="fetch">{{ $t('button.search') }}</el-button>
         <el-button type="info" @click="onSubmit">{{ $t('button.add') }}</el-button>
       </el-form-item>
     </el-form>
@@ -34,18 +39,19 @@
         style="width: 100%"
         size="mini"
       >
-        <el-table-column prop="username" :label="$t('member.flow.table.username')" />
-        <el-table-column prop="beforeMoney" :label="$t('member.flow.table.beforeMoney')" />
-        <el-table-column prop="afterMoney" :label="$t('member.flow.table.afterMoney')" />
-        <el-table-column prop="flowMoney" :label="$t('member.flow.table.flowMoney')" />
-        <el-table-column prop="itemCodeDefault" :label="$t('member.flow.table.item')" />
-        <el-table-column prop="createTime" :label="$t('member.flow.table.createTime')" />
+        <el-table-column prop="username" label="会员名" />
+        <el-table-column prop="type" label="类型" />
+        <el-table-column prop="symbol" label="币种" />
+        <el-table-column prop="fromAddress" label="转帐地址" />
+        <el-table-column prop="toAddress" label="收帐地址" />
+        <el-table-column prop="transactionId" label="转帐Id" />
+        <el-table-column prop="blockTime" label="转帐时间" />
       </el-table>
     </template>
     <!-- 列表 - end -->
 
     <!-- 分页 - start -->
-    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetchData" />
+    <pagination v-show="total>0" :total="total" :page.sync="params.current" :limit.sync="params.size" @pagination="fetch" />
     <!-- 分页 - end -->
   </div>
 </template>
@@ -72,22 +78,20 @@ export default {
       }
     }
   },
-  watch: {
-    '$i18n.locale'(newValue) {
-      this.fetchData()
-    }
-  },
   created() {
-    this.fetchData()
+    this.init()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      api.memberFlow.getList(this.params).then(response => {
-        this.list = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+    async init() {
+      this.fetch()
+    },
+    async fetch() {
+      console.log(222)
+      const res = await api.finance.findPage(this.params)
+      if (res && res.code === 0) {
+        this.list = res.data.records
+        this.total = res.data.total
+      }
     },
     onSubmit() {
       console.log(111)
